@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import colors from '../../utils/style/color'
 import { useEffect, useState } from 'react'
 import { Loader } from '../../utils/style/Atoms'
+import { useFetch } from '../../utils/hooks'
 
 const CardsContainer = styled.div`
     display: grid;
@@ -35,28 +36,8 @@ const LoaderWrapper = styled.div`
 
 function Freelances() {
 
-    const [isDataLoading, setDataLoading] = useState(false)
-    const [error, setError] = useState(false)
-    const [freelancersList, setFreelancesList] = useState([])
-
-    useEffect(() => {
-        async function fetchFreelances() {
-            setDataLoading(true)
-            try {
-                const response = await fetch(`http://localhost:8000/freelances`)
-                const { freelancersList } = await response.json()
-                setFreelancesList(freelancersList)
-            }
-            catch(err) {
-                console.log(err)
-                setError(true)
-            }
-            finally {
-                setDataLoading(false)
-            }
-        }
-        fetchFreelances()
-    }, [])
+    const { data, isLoading, error} =  useFetch(`http://localhost:8000/freelances`) 
+    const freelancersList = data?.freelancersList
 
     if(error) {
         return <div>Il y a eu une erreur</div>
@@ -68,7 +49,7 @@ function Freelances() {
           <PageSubtitle>
             Chez Shiny nous réunissons les meilleurs profils pour vous.
           </PageSubtitle>
-          {isDataLoading ? (
+          {isLoading ? (
             <LoaderWrapper>
               <Loader />
             </LoaderWrapper>
