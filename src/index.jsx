@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import Home from './pages/Home/index.jsx'
 import Survey from './pages/Survey/index.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'

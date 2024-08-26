@@ -28,7 +28,7 @@ const CardWrapper = styled.div`
     }
 `
 
-function Card({ label, title, picture }) {
+function Card({ label = "", title = "", picture = DefaultPicture }) {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', padding: 15 }}>
             <CardWrapper>
@@ -45,10 +45,4 @@ Card.propTypes = {
     title: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired
 }
-Card.defaultProps = {
-    title: '',
-    label: '',
-    picture: DefaultPicture,
-}
-
 export default Card
