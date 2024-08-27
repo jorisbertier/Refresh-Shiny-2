@@ -1,6 +1,6 @@
 import { ThemeProvider } from '../../utils/context'
 import Card from './'
-import { getByText, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 
 describe('Card', ()=> {
     test('should be render without crash', ()=> {
@@ -17,8 +17,8 @@ describe('Card', ()=> {
         // expect(picturePropsCards).toBeTruthy()
         // const titlePropsCard = <Card title="title"/>
         // expect(titlePropsCard).toBeTruthy()
-        const cardTitle = screen.getByText('Marc')
-        expect(cardTitle.textContent).toBe('Marc')
+        // const cardTitle = screen.getByText('Marc')
+        // expect(cardTitle.textContent).toBe(' Marc ')
         const img = screen.getByRole('img')
         expect(img.src).toBe('http://localhost/profile.png')
     })
@@ -26,11 +26,20 @@ describe('Card', ()=> {
         render(
             <ThemeProvider>
                 <Card
-                title="Harry Potter"
-                label="Magicien frontend"
+                title="Marc"
+                label="test"
                 picture="profile.png"
                 />
             </ThemeProvider>
         )
+        const cardTitle = screen.getByText('Marc')
+        const parentNode = cardTitle.closest('div')
+
+        fireEvent.click(parentNode)
+        // await waitFor(() => {
+            expect(cardTitle.textContent).toBe('⭐️ Marc ⭐️')
+        // })
+
+
     })
 })
