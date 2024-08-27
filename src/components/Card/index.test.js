@@ -1,15 +1,36 @@
 import { ThemeProvider } from '../../utils/context'
 import Card from './'
-import { render } from '@testing-library/react'
+import { getByText, render, screen } from '@testing-library/react'
 
 describe('Card', ()=> {
     test('should be render without crash', ()=> {
         render(
             <ThemeProvider>
-                <Card/>
+                <Card
+                title="Marc"
+                picture="profile.png"
+                label=""
+                />
             </ThemeProvider>
         )
-        const cards = <Card picture="image"/>
-        expect(cards).toBeTruthy()
+        // const picturePropsCards = <Card picture="image"/>
+        // expect(picturePropsCards).toBeTruthy()
+        // const titlePropsCard = <Card title="title"/>
+        // expect(titlePropsCard).toBeTruthy()
+        const cardTitle = screen.getByText('Marc')
+        expect(cardTitle.textContent).toBe('Marc')
+        const img = screen.getByRole('img')
+        expect(img.src).toBe('http://localhost/profile.png')
+    })
+    test('Should add ⭐️ around title', async () => {
+        render(
+            <ThemeProvider>
+                <Card
+                title="Harry Potter"
+                label="Magicien frontend"
+                picture="profile.png"
+                />
+            </ThemeProvider>
+        )
     })
 })
