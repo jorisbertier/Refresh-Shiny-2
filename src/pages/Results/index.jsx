@@ -78,6 +78,7 @@ function Results() {
   }
 
   const resultsData = data?.resultsData
+  
 
   return isLoading ? (
     <LoaderWrapper>
@@ -86,16 +87,16 @@ function Results() {
   ) : (
     <ResultsContainer theme={theme}>
       <ResultsTitle theme={theme}>
-        Les compétences dont vous avez besoin :
-        {resultsData &&
-          resultsData.map((result, index) => (
-            <JobTitle
-              key={`result-title-${index}-${result.title}`}
-              theme={theme}
-            >
-              {result.title}
-              {index === resultsData.length - 1 ? '' : ','}
-            </JobTitle>
+          Les compétences dont vous avez besoin :
+          {resultsData &&
+              resultsData.map((result, index) => (
+                  <JobTitle
+                      key={`result-title-${index}-${result.title}`}
+                      theme={theme}
+                  >
+                      {formatJobList(result.title, resultsData.length, index)}
+                  </JobTitle>
+
           ))}
       </ResultsTitle>
       <StyledLink $isFullLink to="/freelances">
@@ -118,3 +119,11 @@ function Results() {
 }
 
 export default Results
+
+
+export function formatJobList(title, listLength, index) {
+  if (index === listLength - 1) {
+      return title
+  }
+  return `${title},`
+}
