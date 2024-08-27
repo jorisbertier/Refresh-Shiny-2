@@ -64,6 +64,23 @@ function formatFetchParams(answers) {
   }, '')
 }
 
+export function formatQueryParams(answers) {
+  const answerNumbers = Object.keys(answers)
+
+  return answerNumbers.reduce((previousParams, answerNumber, index) => {
+    const isFirstParam = index === 0
+    const separator = isFirstParam ? '' : '&'
+    return `${previousParams}${separator}a${answerNumber}=${answers[answerNumber]}`
+  }, '')
+}
+
+export function formatJobList(title, listLength, index) {
+  if (index === listLength - 1) {
+      return title
+  }
+  return `${title},`
+}
+
 function Results() {
   const { theme } = useTheme()
   const { answers } = useContext(SurveyContext)
@@ -121,9 +138,3 @@ function Results() {
 export default Results
 
 
-export function formatJobList(title, listLength, index) {
-  if (index === listLength - 1) {
-      return title
-  }
-  return `${title},`
-}
