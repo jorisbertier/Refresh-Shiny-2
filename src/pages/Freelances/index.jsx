@@ -35,40 +35,42 @@ const LoaderWrapper = styled.div`
 `
 
 function Freelances() {
-
   const { theme } = useTheme()
-    const { data, isLoading, error} =  useFetch(`http://localhost:8000/freelances`) 
-    const freelancersList = data?.freelancersList
+  const { data, isLoading, error } = useFetch(
+    `http://localhost:8000/freelances`
+  )
 
-    if(error) {
-        return <div>Il y a eu une erreur</div>
-    }
+  const freelancersList = data?.freelancersList
 
-    return (
-      <div>
-        <PageTitle theme={theme}>Trouvez votre prestataire</PageTitle>
-        <PageSubtitle theme={theme}>
-          Chez Shiny nous réunissons les meilleurs profils pour vous.
-        </PageSubtitle>
-        {isLoading ? (
-          <LoaderWrapper>
-            <Loader theme={theme} />
-          </LoaderWrapper>
-        ) : (
-          <CardsContainer>
-            {freelancersList.map((profile, index) => (
-              <Card
-                key={`${profile.name}-${index}`}
-                label={profile.job}
-                title={profile.name}
-                picture={profile.picture}
-              />
-            ))}
-          </CardsContainer>
-        )}
-      </div>
-    )
+  if (error) {
+    return <span>Il y a un problème</span>
+  }
+
+  return (
+    <div>
+      <PageTitle theme={theme}>Trouvez votre prestataire</PageTitle>
+      <PageSubtitle theme={theme}>
+        Chez Shiny nous réunissons les meilleurs profils pour vous.
+      </PageSubtitle>
+      {isLoading ? (
+        <LoaderWrapper>
+          <Loader theme={theme} data-testid="loader" />
+        </LoaderWrapper>
+      ) : (
+        <CardsContainer>
+          {freelancersList?.map((profile, index) => (
+            <Card
+              key={`${profile.name}-${index}`}
+              label={profile.job}
+              title={profile.name}
+              picture={profile.picture}
+              theme={theme}
+            />
+          ))}
+        </CardsContainer>
+      )}
+    </div>
+  )
 }
 
 export default Freelances
-
