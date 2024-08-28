@@ -1,4 +1,3 @@
-import { Component } from 'react'
 import styled from 'styled-components'
 import colors from '../../utils/style/color'
 import EmptyIllustration from '../../assets/empty.svg'
@@ -25,11 +24,8 @@ const SubTitle = styled.h3`
 const Illustration = styled.img`
     margin: 30px 0;
 `
-
-class EmptyList extends Component {
-    render() {
-        const { theme } = this.props
-        return (
+function EmptyList({theme}) {
+    return (
         <Container theme={theme}>
             <Title theme={theme}>Dommage...</Title>
             <Illustration src={EmptyIllustration} />
@@ -37,8 +33,7 @@ class EmptyList extends Component {
             Il semblerait que vous n’ayez besoin d’aucune compétence
             </SubTitle>
         </Container>
-        )
-    }
+    )
 }
 
 export default EmptyList
